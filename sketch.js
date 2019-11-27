@@ -67,7 +67,7 @@ function draw() {
   //--instructions
   push();
   var myText = "Press to Play or Pause the opening song";
-  drawingContext.font = "40px VT323";
+  drawingContext.font = "35px VT323";
   drawingContext.textAlign = "center";
   fill('white');
   text(myText, windowWidth / 2, windowHeight - (windowHeight / 8));
