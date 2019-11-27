@@ -32,19 +32,20 @@ function draw() {
   //--calling my background
   backgroundImage();
 
-  //--Instructions
+  //--instructions
   push();
   var myText = "Press to Play or Pause the opening song";
   drawingContext.font = "40px VT323";
   drawingContext.textAlign = "center";
   fill('white');
   text(myText, windowWidth / 2, windowHeight - (windowHeight / 6));
-  pop()
+  pop();
 
+  //--creating my 80ies animation - linear wave
   let waveform = fft.waveform();
   noFill();
   beginShape();
-  stroke('white'); // waveform is red
+  stroke('white');
   strokeWeight(1);
   for (var i = 0; i< waveform.length; i++){
     let x = map(i, 0, waveform.length, 0, width);
@@ -52,28 +53,21 @@ function draw() {
     vertex(x,y);
   }
   endShape();
+
+  //--creating my 80ies animation - circular wave
+  let spectrum = fft.analyze();
+  ellipseMode(CENTER);
+  noFill();
+  stroke('white');
+  for (var i = 0; i < spectrum.length; i++) {
+    let d = map(spectrum[i], 0, 25, windowHeight, 10);
+    ellipse(windowWidth / 2, windowHeight / 2, d);
+  }
+
+  //--making Mentana jump up
+  
 }
 
-
-// function keyTyped() {
-//
-//   //--This function changes my cardboards and songs
-//   if (key === 'p') {
-//     //--Show first cardboard after clicking 'a'
-//     image(board01, (windowWidth / 2) - (board01.width / 2), (windowHeight / 2) - (board01.height / 2), board01.width, board01.height);
-//     //--Text
-//     push();
-//     var myText = "Your favourite party crasher";
-//     drawingContext.font = "60px Righteous";
-//     drawingContext.textAlign = "center";
-//     fill('RoyalBlue');
-//     text(myText, windowWidth / 2, windowHeight - (windowHeight / 4));
-//     pop();
-//     //--Play soundtrack
-//     if (mySong02.isPlaying() == false) {
-//       mySong02.play();
-//     }
-// }
 
 function mousePressed() {
   //--mySong plays and pauses with the pressure of my mouse
