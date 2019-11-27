@@ -32,40 +32,46 @@ function draw() {
   //--calling my background
   backgroundImage();
 
-  //--instructions
-  push();
-  var myText = "Press to Play or Pause the opening song";
-  drawingContext.font = "40px VT323";
-  drawingContext.textAlign = "center";
-  fill('white');
-  text(myText, windowWidth / 2, windowHeight - (windowHeight / 6));
-  pop();
-
   //--creating my 80ies animation - linear wave
   let waveform = fft.waveform();
   noFill();
   beginShape();
   stroke('white');
   strokeWeight(1);
-  for (var i = 0; i< waveform.length; i++){
+  for (var i = 0; i < waveform.length; i++) {
     let x = map(i, 0, waveform.length, 0, width);
-    let y = map( waveform[i], -1, 1, 0, height);
-    vertex(x,y);
+    let y = map(waveform[i], -1, 1, 0, height);
+    vertex(x, y);
   }
   endShape();
 
+  let ellipseSpectrum = fft.analyze();
+
   //--creating my 80ies animation - circular wave
-  let spectrum = fft.analyze();
   ellipseMode(CENTER);
   noFill();
   stroke('white');
-  for (var i = 0; i < spectrum.length; i++) {
-    let d = map(spectrum[i], 0, 25, windowHeight, 10);
+  for (var i = 0; i < ellipseSpectrum.length; i++) {
+    let d = map(ellipseSpectrum[i], 0, 25, windowHeight, 10);
     ellipse(windowWidth / 2, windowHeight / 2, d);
   }
 
   //--making Mentana jump up
-  
+  var mybass = fft.getEnergy("bass");
+  var mylowMid = fft.getEnergy("lowMid");
+  var myhighMid = fft.getEnergy("highMid");
+  var mytreble = fft.getEnergy("treble");
+  image(mentana, (windowWidth / 2) - (mentana.width / 2), windowHeight - (myhighMid * 6), (mentana.width * 1.5), (mentana.height * 1.5));
+
+
+  //--instructions
+  push();
+  var myText = "Press to Play or Pause the opening song";
+  drawingContext.font = "40px VT323";
+  drawingContext.textAlign = "center";
+  fill('white');
+  text(myText, windowWidth / 2, windowHeight - (windowHeight / 8));
+  pop();
 }
 
 
