@@ -57,10 +57,10 @@ function draw() {
   }
 
   //--making Mentana jump up
-  var mybass = fft.getEnergy("bass");
-  var mylowMid = fft.getEnergy("lowMid");
+  var mybass = fft.getEnergy("bass"); //--defined to make a test
+  var mylowMid = fft.getEnergy("lowMid");//--defined to make a test
   var myhighMid = fft.getEnergy("highMid");
-  var mytreble = fft.getEnergy("treble");
+  var mytreble = fft.getEnergy("treble");//--defined to make a test
   image(mentana, (windowWidth / 2) - (mentana.width / 2), windowHeight - (myhighMid * 6), (mentana.width * 1.5), (mentana.height * 1.5));
 
 
